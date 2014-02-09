@@ -1,0 +1,108 @@
+.loading {
+    visibility:hidden;
+}
+
+.sc-worklist-wrap {
+    background: none repeat scroll 0 0 #FFFFFF;
+    margin-bottom:17px;
+}
+
+.sc-worklist-wrap table tr:hover td{
+    cursor:pointer;
+    background: #fff;
+}
+
+.sc-worklist-wrap table th a {
+    color:#fff;
+    text-decoration: none;
+    display: block;
+    width: 100%;
+}
+
+.sc-worklist-wrap table th a.active, .sc-worklist-wrap table th a:hover{
+    color:#ff9e05;
+    cursor: pointer;
+}
+
+.sc-worklist-wrap table td {
+    position: relative;
+}
+
+.sc-worklist-wrap table tr td:last-child {
+    display: none;
+}
+
+.sc-worklist-wrap table th a.headlabel.active:after {
+    content:' ▼';
+    font-size:9px;
+}
+
+.sc-worklist-wrap table th a.headlabel.active.reverse:after {
+    content:' ▲';
+    font-size:9px;
+}
+
+.sc-worklist-wrap .glyphicon-filter  {
+    font-size: 8px;
+    text-align: right;
+    float: right;
+    clear: both;
+    margin: 2px 3px 0 0;
+    width: 100%;
+
+}
+
+.sc-worklist-wrap .filterwrap {
+    position: absolute;
+    top:33px;
+    left: 0;
+    box-shadow: 0 1px 1px 1px #aaa;
+    background: #fefefe;
+    max-height: 200px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    min-width: 125%;
+    max-width: 200%;
+    z-index: 5;
+    color:#333;
+    padding:10px;
+    font-size: 12px;
+}
+
+.sc-worklist-wrap .filterwrap label {
+    margin:0 0 5px;
+    min-width: 100px;
+    font-weight: normal;
+    display: block;
+    clear:both;
+}
+
+.sc-worklist-wrap .filterwrap label:hover {
+    color:#ff9e05;
+    cursor: pointer;
+}
+
+.sc-worklist-wrap .filterwrap label:last-child {
+    margin: 0;
+}
+
+.sc-worklist-wrap .filterwrap input {
+    margin:0 3px 2px 0;
+}
+
+.sc-worklist-wrap .alert-warning {
+    margin: -5px 0 20px;
+}
+
+.sc-worklist-wrap h2 {
+    font-size: 12px;
+    text-transform: uppercase;
+    padding: 6px 5px;
+    margin: 10px 1px 0;
+    background: #24425f;
+    color: #fff;
+}
+
+.sc-worklist-wrap .table-total {
+    font-size: 12px;
+}

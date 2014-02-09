@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:g="http://www.backbase.com/2008/gadget" xml:lang="en">
+<head>
+    <title>Worklist Table</title>
+    <link rel="stylesheet" type="text/css" href="sc-worklist.css"/>
+
+    <g:preferences>
+        <g:preference name="tableTitle" label="Table Title" type="text" default="Worklist"/>
+
+        <g:preference name="showTitle" type="select-one" default="false" label="Show Title">
+            <g:enumeration value="true" label="Show"/>
+            <g:enumeration value="false" label="Hide"/>
+        </g:preference>
+
+        <g:preference name="showCounter" type="select-one" default="true" label="Show Counter">
+            <g:enumeration value="true" label="Show"/>
+            <g:enumeration value="false" label="Hide"/>
+        </g:preference>
+
+        <g:preference name="pipeUrl"  label="Endpoint URL"  type="text" default="services/rest/solvency/worklist/servicing"/>
+
+        <g:preference name="subscribeEvent"  label="PubSub event name to subscribe on"  type="text" default="queueId"/>
+        <g:preference name="publishEvent"  label="PubSub event name to publish"  type="text" default="caseId"/>
+
+    </g:preferences>
+
+</head>
+<body g:onload="requireWidget(__WIDGET__, 'sc-worklist');" class="loading" ng-controller="scWorklistCtrl" >
+<div class="sc-worklist-wrap">
+    <div class="alert alert-danger" ng-show="error.status">{{error.message}}</div>
+
+    <h2 ng-if="titleVisible">{{tableTitle}}</h2>
+    <table class="table table-striped table-bordered">
+        <thead>
+            <tr>
+               <th ng-repeat="header in headers" ng-init="outerIndex = $index">
+
+                   <a href="" ng-click="sortBy(header.name)" class="headlabel" ng-class="{active: activeClass == header.name, reverse: sortOrder == header.name}">{{unCamelCase(header.name)}}</a>
+                   <a ng-click="openHeadFilter(header.name,$event)" ng-class="{active: header.name == activeHeadFilter &amp;&amp; filterOpen}" class="glyphicon glyphicon-filter"></a>
+
+                   <div class="filterwrap" ng-if="header.name == activeHeadFilter &amp;&amp; filterOpen" click-anywhere="" click-outside="closeFilters()">
+                        <label ng-repeat="colValue in currColValues[outerIndex]" for="filter{{colValue}}" ng-init="innerIndex = $index">
+                            <input ng-model="colValue.model" type="checkbox" id="filter{{colValue}}" ng-change="filterChanged()"/>
+                            <span ng-bind-html-unsafe="colValue.name | flag"></span>
+                        </label>
+                   </div>
+               </th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <tr ng-repeat="case in cases | orderBy:sortOrder" ng-click="openCase(case.caseId)" >
+                <td ng-repeat="(key,value) in case | visibility | toArray track by $index" >
+                    <span ng-bind-html-unsafe="value | flag"></span>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <div class="alert alert-warning" ng-show="!totalVisible">No cases matching selected filters.</div>
+    <div class="table-total" ng-if="counterVisible">Total Cases in Filter: <strong>{{totalVisible}}</strong></div>
+</div>
+</body>
+</html>
